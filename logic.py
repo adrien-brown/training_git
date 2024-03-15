@@ -1,11 +1,4 @@
-"""This is a gentle program to help me cook
-However, I have been caught by a hook, 
-(Line 123), the error's lair,
-Unravel it, and flavors flair!
-Together, we'll debug the bite,
-Let's fix the recipe, make it right.
-Code waltzes, spices sing,
-This cooking puzzle, we'll make it swing!"""
+"""This is a gentle program to help me cook"""
 
 import time
 
@@ -121,7 +114,7 @@ for step_number, instruction in enumerate(chosen_recipe["instructions"]):
        print("")
 
    # Pause for actions after each instruction
-   input(f"\n Press a key when you're done with Step {step_number - 1}...\n")
+   input(f"\n Press a key when you're done with Step {step_number + 1}...\n")
    time.sleep(2)
 
 # Oven timer and completion message
