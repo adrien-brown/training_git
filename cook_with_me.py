@@ -68,60 +68,60 @@ print("\nWelcome to the new cooking lesson!\n")
 
 time.sleep(2)
 
-while True:
-   lesson_choice = input(
-       "Which lesson would you like to do today?\n"
-       "1. Chocolate French Cake\n"
-       "2. Shortbread Biscuit\n"
-       "Enter your choice (1 or 2): "
-   )
+def get_user_choice():
+    """Prompt the user to choose a recipe and handle invalid input."""
+    while True:
+        choice = input(
+            "Which lesson would you like to do today?\n"
+            "1. Chocolate French Cake\n"
+            "2. Shortbread Biscuit\n"
+            "Enter your choice (1 or 2): "
+        )
+        if choice in ("1", "2"):
+            return choice
+        else:
+            print("Invalid choice. Please enter 1 or 2.")
 
-   if lesson_choice in ("1", "2"):
-       break
-   else:
-       print("Invalid choice. Please enter 1 or 2.")
+def execute_recipe(recipe):
+    """Execute the chosen recipe."""
+    print("\nThe lesson will start now!\n")
+    print(f"You are about to bake: {recipe['ingredients']['type of dish']['cake']}")
+    time.sleep(2)
 
-# Get the chosen recipe
-chosen_recipe = (chocolate_french_cake 
-                 if lesson_choice == "1" else shortbread_biscuit)
+    for step_number, instruction in enumerate(recipe["instructions"], start=1):
+        print(f"\n****** Step {step_number}: ******\n")
+        print(instruction)
+        time.sleep(1)
 
-# Display message and proceed with the chosen lesson
-print(f"\nThe lesson will start now! \n")
-type_of_dish = chosen_recipe['ingredients']
-cake_type = type_of_dish['type of dish']
-print(f"You are about to bake : {cake_type['cake']}")
+        if step_number == 1:
+            print("\n -- Gather your ingredients: --\n")
+            print("\n- Base ingredients:")
+            for ingredient, amount in recipe["ingredients"]["base"].items():
+                print(f"  - {ingredient} ({amount})")
+                time.sleep(1)
+            print("\n- Wet ingredients:")
+            for ingredient, amount in recipe["ingredients"]["wet"].items():
+                print(f"  - {ingredient} ({amount})")
+                time.sleep(1)
+            time.sleep(2)
+            print("")
+
+        input(f"\nPress a key when you're done with Step {step_number}...\n")
+        time.sleep(2)
+
+    alarm_reminder = recipe["ingredients"]["timing"]["cooking time"]
+    print("\nYou are almost done, we just need to cook it!\n")
+    print(f"Place your cake in the oven for {alarm_reminder} minutes.")
+    time.sleep(alarm_reminder * 60)
+    print("Your cake is ready, don't let it burn!")
+    print("Enjoy your cake!")
+    print("Congratulations, you've baked a lovely cake!")
+
+# Welcome message and lesson selection
+print("\nWelcome to the new cooking lesson!\n")
 time.sleep(2)
 
-# Step through the instructions, with pause
-for step_number, instruction in enumerate(chosen_recipe["instructions"]):
-   print(f"\n****** Step {step_number + 1}:******")
-   print("")
-   print(instruction)
-   time.sleep(1)
-
-   # Display ingredients for step 0
-   if step_number == 0:
-       print("\n -- Gather your ingredients:-- \n")
-       print("\n- Base ingredients:")
-       for ingredient, amount in chosen_recipe["ingredients"]["base"].items():
-           print(f"  - {ingredient} ({amount})")
-           time.sleep(1)
-       print("\n- Wet ingredients:")
-       for ingredient, amount in chosen_recipe["ingredients"]["wet"].items():
-           print(f"  - {ingredient} ({amount})")
-           time.sleep(1)
-       time.sleep(2)
-       print("")
-
-   # Pause for actions after each instruction
-   input(f"\n Press a key when you're done with Step {step_number + 1}...\n")
-   time.sleep(2)
-
-# Oven timer and completion message
-alarm_reminder = chosen_recipe["ingredients"]["timing"]["cooking time"]
-print("You are almost done, we just need to cook it! \n")
-print(f"Place your cake in the oven for {alarm_reminder} minutes")
-time.sleep(alarm_reminder * 60)
-print("Your cake is ready, don't let it burn!")
-print("Enjoy your cake!")
-print("Congratulations, you've baked a lovely cake!")
+# Get the chosen recipe and execute it
+lesson_choice = get_user_choice()
+chosen_recipe = chocolate_french_cake if lesson_choice == "1" else shortbread_biscuit
+execute_recipe(chosen_recipe)
